@@ -1,12 +1,13 @@
 const express = require('express');
 const router = express.Router();
 const bodyParser = require('body-parser');
-
+const path = require('path');
 // const app = express();
 // app.use(express.json());
 
 
 var fs = require('fs');
+const { dirname } = require('path');
 
 
 
@@ -58,6 +59,15 @@ router.post('/product',(req,res) => {
     res.end();   
 
 });
+
+router.get('/product/images/upload/:path', (request, response) => {
+  
+    imgpath = path.join(__dirname+"/../images/uploads", request.params.path);
+    console.log(imgpath);
+    response.sendFile(imgpath);
+       
+
+  });
 
 router.delete('/product' , (req, res) =>{
     var blob = fs.readFileSync('data.json');   
